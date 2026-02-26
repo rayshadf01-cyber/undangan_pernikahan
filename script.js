@@ -1,96 +1,89 @@
-// 1. Ambil Nama Tamu dari URL
-const urlParams = new URLSearchParams(window.location.search);
-const guestName = urlParams.get('to');
-if (guestName) {
-    document.getElementById('nama-tamu-display').innerText = guestName;
-    document.getElementById('namaTamu').value = guestName;
+// 1. Fungsi Buka Undangan & Play Musik
+const audio = document.getElementById('nasheed');
+
+function openInvitation() {
+    // 1. Paksa putar musik
+    const audio = document.getElementById("nasheed");
+    if (audio) {
+        audio.play();
+    }
+
+    // 2. Ambil elemen target
+    const target = document.querySelector("#main-content");
+    
+    if (target) {
+        // Gunakan getBoundingClientRect biar dapat posisi asli di layar
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        
+        // Eksekusi scroll manual
+        window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth"
+        });
+    } else {
+        // Kalau muncul alert ini, berarti ID di HTML kamu bukan 'main-content'
+        alert("ID main-content nggak ada di HTML, Cok!");
+    }
 }
 
-// 2. Kontrol Audio & Buka Undangan
-var musik = document.getElementById("bg-music");
-var btnAudio = document.getElementById("audio-control");
-
-function bukaUndangan() {
-    const cover = document.getElementById('cover');
-    const mainContent = document.getElementById('main-content');
-    const btnAudio = document.getElementById("audio-control");
-
-    // Efek transisi halus
-    cover.style.opacity = '0';
-    cover.style.pointerEvents = 'none'; // Biar klik nembus ke bawah
-
-    setTimeout(() => {
-        cover.style.display = 'none';
-        mainContent.style.display = 'block';
-        
-        // Paksa scroll ke paling atas pas kebuka
-        window.scrollTo(0, 0);
-        
-        // Re-enable scrolling
-        document.body.style.overflowY = 'auto';
-        document.documentElement.style.overflowY = 'auto'; 
-        
-        musik.play().catch(e => console.log("Autoplay dicegah browser"));
-        btnAudio.style.display = 'block';
-    }, 1000);
+// 2. Kontrol Musik (Play/Pause)
+function toggleMusic() {
+    const btn = document.getElementById('music-btn');
+    if (audio.paused) {
+        audio.play();
+        btn.innerText = "🎵";
+    } else {
+        audio.pause();
+        btn.innerText = "🔇";
+    }
 }
 
-function toggleAudio() {
-    if (musik.paused) { musik.play(); btnAudio.innerHTML = "🎵"; } 
-    else { musik.pause(); btnAudio.innerHTML = "🔇"; }
-}
+// 3. Hitung Mundur (Countdown)
+// Target tanggal: 28 Maret 2026 jam 09:00
+const targetDate = new Date("March 28, 2026 09:00:00").getTime();
 
-// 3. Countdown Timer
-const targetDate = new Date("mart 28, 2026 09:00:00").getTime();
-setInterval(function() {
+const updateCountdown = setInterval(() => {
     const now = new Date().getTime();
     const distance = targetDate - now;
 
-    if (distance < 0) return;
+    // Kalkulasi Waktu
+    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((distance % (1000 * 60)) / 1000);
 
-    document.getElementById("hari").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-    document.getElementById("jam").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    document.getElementById("menit").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    document.getElementById("detik").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+    // Update ke HTML
+    document.getElementById('days').innerText = d;
+    document.getElementById('hours').innerText = h;
+    document.getElementById('mins').innerText = m;
+    document.getElementById('secs').innerText = s;
+
+    // Jika waktu habis
+    if (distance < 0) {
+        clearInterval(updateCountdown);
+        document.querySelector(".countdown-container").innerHTML = "ACARA SEDANG BERLANGSUNG";
+    }
 }, 1000);
 
-// 4. Animasi Scroll
-const reveals = document.querySelectorAll('.reveal');
-const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
-const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-    entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('active');
-        observer.unobserve(entry.target);
-    });
-}, revealOptions);
-reveals.forEach(reveal => revealOnScroll.observe(reveal));
+function sendToWA(tujuan) {
+    const nama = document.getElementById('nama').value;
+    const ucapan = document.getElementById('ucapan').value;
+    
+    // --- SETTING NOMOR DI SINI ---
+    const noWanita = "6281268184765"; // Ganti nomor Wyvanny
+    const noPria = "6282297577745";   // Ganti nomor Destra
+    // ----------------------------
 
-// 5. RSVP via WhatsApp
-// PERHATIKAN TANDA KURUNG DI BAWAH INI, HARUS ADA KATA 'nomorWA'
-function kirimRSVP(nomorWA) {
-    var nama = document.getElementById('namaTamu').value;
-    var kehadiran = document.getElementById('kehadiran').value;
-    var jumlah = document.getElementById('jumlahTamu').value;
-    var ucapan = document.getElementById('ucapan').value;
-
-    // Ngecek form udah diisi apa belum
-    if(!nama || !kehadiran) { 
-        alert("Nama dan Kehadiran wajib diisi!"); 
-        return; 
+    if (nama === "" || ucapan === "") {
+        alert("Isi nama dan ucapan dulu ya!");
+        return;
     }
 
-    // Format pesan WhatsApp
-    var pesan = `Halo, saya ingin konfirmasi kehadiran.%0A%0A*Nama:* ${nama}%0A*Hadir:* ${kehadiran}%0A*Jumlah:* ${jumlah} orang%0A*Ucapan & Doa:* ${ucapan}`;
-    
-    // Buka WhatsApp pake nomor yang dilempar dari tombol HTML
-    window.open(`https://wa.me/${nomorWA}?text=${pesan}`, '_blank');
-}
+    let nomorTujuan = (tujuan === 'wanita') ? noWanita : noPria;
+    let targetNama = (tujuan === 'wanita') ? "Wyvanny" : "Destra";
 
-// 6. Share Link Undangan
-function shareWA() {
-    var linkUndangan = window.location.href.split('?')[0];
-    var pesan = `Bismillahirrahmanirrahim.%0ATanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara pernikahan kami.%0A%0ABuka tautan berikut untuk info detail:%0A${linkUndangan}%0A%0ATerima kasih.`;
-    window.open(`https://wa.me/?text=${pesan}`, '_blank');
+    const pesan = `Halo ${targetNama}, saya *${nama}*.\n\nBerikut ucapan & doa restu saya:\n"${ucapan}"`;
+    const url = `https://api.whatsapp.com/send?phone=${nomorTujuan}&text=${encodeURIComponent(pesan)}`;
 
+    window.open(url, '_blank');
 }

@@ -1,200 +1,225 @@
-/* --- CSS STYLING & ANIMASI --- */
+html {
+    scroll-behavior: smooth !important;
+    height: auto !important; /* Jangan dikunci 100% */
+}                       
+
 :root {
-    --burgundy: #800020;
-    --gold: #F9F9F9;
-    --white: #F9F9F9;
-    --bg-light: #fdf5f6;
+    --bg-dark: #1a0202;
+    --burgundy-deep: #3d0303; 
+    --gold-bright: #d4af37;
+    --gold-soft: #c5a059;
+    --white-ivory: #fcfcfc;
+    --text-muted: #d1d1d1;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Poppins', sans-serif; background-color: var(--white); color: #333; overflow-x: hidden; }
-h1, h2, h3, .nama-pasangan { font-family: 'Great Vibes', cursive; color: var(--burgundy); }
+/* Base Styles */
+* { box-sizing: border-box; }
 
-.btn {
-    background-color: var(--burgundy); color: var(--gold); padding: 12px 24px;
-    border: 2px solid var(--gold); border-radius: 30px; font-size: 16px;
-    cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block;
-}
-.btn:hover { background-color: var(--gold); color: var(--burgundy); }
-
-/* Animasi Scroll (Reveal) */
-.reveal { opacity: 0; transform: translateY(50px); transition: all 1s ease-in-out; }
-.reveal.active { opacity: 1; transform: translateY(0); }
-
-/* Sampul Depan */
-#cover {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background: linear-gradient(rgba(128, 0, 32, 0.8), rgba(128, 0, 32, 0.3)), url("prewed13.jpg") center/cover;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    z-index: 9999; color: white; text-align: center; transition: opacity 1s ease;
-    font-family: 'Poppins', sans-serif;
-}
-#cover h1 { 
-    font-size: 4.5rem; margin: 10px 0; color: white; 
-    font-family: 'Playfair Display', serif; font-weight: 700; font-style: italic; 
-}
-.nama-tamu-box { background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 10px; margin-bottom: 20px; border: 1px solid white;}
-
-/* Konten Utama */
-#main-content { display: none; }
-section { padding: 80px 20px; text-align: center; }
-
-/* Hero & Countdown */
-.hero {
-    height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(128,0,32,0.6)), url("prewed7.jpg") center/cover;
-    color: var(--white); 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    align-items: center;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white-ivory);
+    background-color: var(--bg-dark); /* Warna dasar */
+    overflow-x: hidden !important;
+    overflow-y: auto !important; /* Pastikan scroll vertikal hidup */
+    height: auto !important; 
+    min-height: 100vh;
 }
 
-.hero .gaya { 
-    color: var(--gold); 
-    font-size: 2rem; 
-    margin: 20px 0; 
-    /* Penulisan font-family yang bener 👇 */
-    font-family: 'Playfair Display', serif; font-weight: 700; font-style: italic; 
-
-    font-weight: 600; /* Tambahin ini biar tulisannya agak tebal cocok buat nama */
-}
-.hero .ayat {
-    font-size: 2rem;
-}
-.countdown { display: flex; gap: 15px; margin-top: 20px; }
-.cd-box { background: rgba(128,0,32,0.8); padding: 15px; border-radius: 10px; min-width: 80px; border: 1px solid var(--gold); }
-.cd-box span { display: block; font-size: 2rem; font-weight: bold; color: var(--gold); }
-
-/* Sang Mempelai */
-.mempelai-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 30px; }
-.mempelai-box { text-align: center; max-width: 300px; }
-.mempelai-img { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; border: 5px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.15); margin-bottom: 20px; }
-.mempelai-box h3 { font-size: 2.5rem; margin-bottom: 5px; }
-.mempelai-box p { font-size: 0.9rem; color: #555; line-height: 1.6; }
-.dengan-hati { font-family: 'Great Vibes', cursive; color: var(--gold); font-size: 3rem; margin: 20px 20px; }
-
-/* Love Story Timeline */
-.timeline { position: relative; max-width: 600px; margin: 0 auto; padding: 20px 0; }
-.timeline::after { content: ''; position: absolute; width: 4px; background-color: var(--burgundy); top: 0; bottom: 0; left: 50%; margin-left: -2px; }
-.container-tl { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
-.left { left: 0; text-align: right; }
-.right { left: 50%; text-align: left; }
-.content-tl { padding: 20px; background: white; position: relative; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 1px solid rgba(128,0,32,0.2); }
-
-/* Gallery */
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; max-width: 1000px; margin: 0 auto; }
-.gallery-grid img { width: 100%; height: 250px; object-fit: cover; border-radius: 10px; border: 3px solid var(--burgundy); transition: transform 0.3s; }
-.gallery-grid img:hover { transform: scale(1.05); }
-
-/* Video / Iframe */
-.video-container { max-width: 800px; margin: 0 auto; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-.video-container iframe { width: 100%; height: 450px; border: none; }
-
-/* Bridal Party */
-.bridal-party { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px; margin-bottom: 40px;}
-.party-member { text-align: center; width: 130px; }
-.party-member img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold); margin-bottom: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-.party-member h4 { font-family: 'Poppins', sans-serif; color: var(--burgundy); font-size: 1rem; font-weight: 600; }
-.party-member p { font-size: 0.8rem; color: #666; font-style: italic; }
-
-/* Utilities */
-.card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); max-width: 600px; margin: 20px auto; border: 1px solid rgba(128,0,32,0.2); }
-.bg-light { background-color: var(--bg-light); }
-iframe.maps { width: 100%; height: 300px; border-radius: 10px; margin-top: 15px; border: none; }
-form { display: flex; flex-direction: column; gap: 15px; }
-input, select, textarea { padding: 12px; border: 1px solid var(--burgundy); border-radius: 5px; font-family: inherit; }
-
-/* Multiple Rekening */
-.rekening-container { display: flex; flex-direction: column; gap: 15px; align-items: center; margin-top: 20px; }
-.rekening-card { background: var(--burgundy); color: var(--white); padding: 25px; border-radius: 15px; width: 100%; max-width: 400px; border: 1px solid var(--gold); box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-
-#audio-control { position: fixed; bottom: 20px; right: 20px; background: var(--gold); color: var(--burgundy); border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 20px; cursor: pointer; z-index: 1000; display: none; }
-
-/* =========================================
-   PENGATURAN KHUSUS HP (MOBILE RESPONSIVE)
-   ========================================= */
-@media screen and (max-width: 768px) {
-    /* 1. Sesuaikan ukuran Font biar ga kegedean di layar kecil */
-    #cover h1 { font-size: 3rem; }
-    .hero h1 { font-size: 3.5rem; }
-    h2 { font-size: 2rem !important; margin-bottom: 15px !important; }
-    h3 { font-size: 1.5rem !important; }
-    section { padding: 50px 15px; } /* Kurangi jarak atas-bawah */
-
-    /* 2. Timeline Love Story di HP dibikin 1 kolom (garis di kiri) */
-    .timeline::after { left: 20px; } /* Garis pindah ke kiri */
-    .container-tl { width: 100%; padding-left: 50px; padding-right: 10px; }
-    .left, .right { left: 0; text-align: left; } /* Teks rata kiri semua */
-
-    /* 3. Kotak Countdown di HP biar pas */
-    .countdown { flex-wrap: wrap; justify-content: center; }
-    .cd-box { min-width: 70px; padding: 10px; }
-    .cd-box span { font-size: 1.5rem; }
-
-    /* 4. Galeri dibikin 2 Kolom buat HP */
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .gallery-grid img { height: 150px; }
-
-    /* 5. Maps dan Video dikecilin tingginya */
-    .video-container iframe, iframe.maps { height: 250px !important; }
-
-    /* 6. Form RSVP dan Kotak Rekening */
-    .card { padding: 20px; margin: 10px 0; }
-
-    .rekening-card { padding: 15px; } }
-
-/* --- Tambahan Global --- */
-html, body {
-    /* Biar nggak ada sisa putih di kanan dan scroll lancar */
-    max-width: 100%;
-    overflow-x: hidden;
+/* --- INI KUNCINYA: BACKGROUND MATI --- */
+body::after {
+    content: "";
+    position: fixed; /* Bikin dia nempel di layar */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('prewed2.jpg'); /* FOTO UTAMA */
+    background-size: cover;
+    background-position: center;
+    z-index: -2; /* Paling belakang */
 }
 
-/* --- Perbaikan Cover --- */
-#cover {
+/* --- OVERLAY GELAP (IKUT MATI) --- */
+body::before {
+    content: "";
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    /* Gunakan min-height biar kalau kontennya panjang di HP, dia bisa di-scroll internal */
-    min-height: 100%; 
-    height: 100vh;
-    overflow-y: auto; /* PENTING: Biar kalau tombol Buka kegedean, covernya bisa di-scroll dikit */
+    height: 100%;
+    background: rgba(26, 2, 2, 0.75); /* Burgundy Hitam Transparan */
+    z-index: -1; /* Di atas foto, di bawah konten */
+}
+
+/* Section Setup (Transparan total agar foto kelihatan) */
+section {
+    position: relative;
+    padding: 80px 20px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
-    padding: 20px; /* Jaga jarak biar tulisan ga nempel layar */
+    background: transparent; 
+    z-index: 1; /* Konten di depan */
+}
+.hero {
+    overflow: hidden;
+}
+/* Hapus semua background-image di .hero, .events, dll agar tidak double */
+.hero, #main-content, .events, .gallery, .extra, .wish-section {
+    background-image: none !important;
 }
 
-/* --- Perbaikan Responsive di Media Query --- */
-@media screen and (max-width: 768px) {
-    #cover h1 { 
-        font-size: 2.2rem; /* Kecilin lagi cok, 3rem masih kegedean buat HP kecil semacam iPhone SE */
-    }
-    
-    .hero h1 { 
-        font-size: 2.5rem; 
-    }
+/* Memastikan konten punya batas lebar */
+section > *:not(.gallery-wrapper) {
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+    width: 100%;
+}
 
-    /* Kasih jarak bawah di section terakhir biar tombol audio ga nutupin konten */
-    section { 
-        padding: 40px 15px; 
-    }
-    
-    /* Perbaikan Gambar Mempelai biar ga kegedean */
-    .mempelai-img {
-        width: 150px;
-        height: 150px;
-    }
+/* --- HAPUS PENGATURAN FOTO PER SECTION (SUDAH TIDAK PERLU) --- */
 
-    /* Tombol Buka Undangan di HP */
-    .btn {
-        width: 100%; /* Biar gampang diklik jempol */
-        max-width: 250px;
-        padding: 10px 15px;
-        font-size: 14px;
-    }
+/* Typography */
+h1, h2.section-title, .script-name, .divider-ampersand {
+    font-family: 'Great Vibes', cursive;
+    color: var(--gold-bright);
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+}
+
+.couple-title { font-size: 3.5rem; margin: 10px 0; }
+.script-name { font-size: 2.2rem; margin: 15px 0 5px 0; }
+.divider-ampersand { font-size: 4rem; margin: 20px 0; }
+
+/* Images (Arch Style) */
+.arch-frame {
+    width: 220px;
+    height: 320px;
+    border: 2px solid var(--gold-soft);
+    border-radius: 110px 110px 10px 10px;
+    margin: 20px auto;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+.arch-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Countdown 2 Baris */
+.countdown-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+.countdown-row { display: flex; gap: 10px; justify-content: center; width: 100%; }
+
+.count-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid var(--gold-soft);
+    padding: 10px;
+    min-width: 70px;
+    border-radius: 10px;
+}
+.count-box.large { min-width: 120px; padding: 15px; background: rgba(212, 175, 55, 0.2); }
+.count-box span { display: block; font-size: 1.8em; font-weight: bold; color: var(--gold-bright); }
+.count-box.large span { font-size: 2.5em; }
+.count-box p { margin: 0; font-size: 0.7em; text-transform: uppercase; color: var(--text-muted); }
+
+/* Glass Card & Bubbles */
+.glass-card {
+    background: rgba(26, 2, 2, 0.5); /* Burgundy Gelap Transparan */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+.bubble {
+    background: var(--burgundy-deep);
+    border: 1px solid var(--gold-soft);
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    margin: 10px auto;
+    color: var(--white-ivory);
+}
+
+/* Horizontal Gallery */
+.gallery-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100vw;
+    overflow-x: auto;
+    display: flex;
+    padding: 20px 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+.gallery-wrapper::-webkit-scrollbar { display: none; }
+.gallery-container { display: flex; gap: 15px; padding: 0 30px; }
+.gallery-item {
+    flex: 0 0 260px;
+    height: 380px;
+    scroll-snap-align: center;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid var(--gold-soft);
+}
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+
+/* Form & WA Buttons */
+#wish-form input, #wish-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid var(--gold-soft);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    font-family: inherit;
+}
+.wa-button-group { display: flex; gap: 10px; margin-top: 10px; }
+.btn-wa {
+    flex: 1;
+    background: #25d366;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Buttons */
+.btn-gold {
+    background: linear-gradient(45deg, #d4af37, #8d6e35);
+    color: #fff;
+    padding: 14px 35px;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+/* Utilities */
+iframe { width: 100%; height: 250px; border-radius: 15px; border: 1px solid var(--gold-soft); margin: 15px 0; }
+#music-btn {
+    position: fixed; bottom: 20px; right: 20px;
+    background: var(--gold-bright);
+    width: 45px; height: 45px; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999; cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    .wa-button-group { flex-direction: column; }
+    .couple-title { font-size: 2.8rem; }
+    body { background-attachment: scroll; } /* Opsional: di HP scroll terkadang lebih ringan dibanding fixed */
 }
