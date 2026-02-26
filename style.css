@@ -141,4 +141,60 @@ input, select, textarea { padding: 12px; border: 1px solid var(--burgundy); bord
 
     /* 6. Form RSVP dan Kotak Rekening */
     .card { padding: 20px; margin: 10px 0; }
+
     .rekening-card { padding: 15px; } }
+
+/* --- Tambahan Global --- */
+html, body {
+    /* Biar nggak ada sisa putih di kanan dan scroll lancar */
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* --- Perbaikan Cover --- */
+#cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Gunakan min-height biar kalau kontennya panjang di HP, dia bisa di-scroll internal */
+    min-height: 100%; 
+    height: 100vh;
+    overflow-y: auto; /* PENTING: Biar kalau tombol Buka kegedean, covernya bisa di-scroll dikit */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 20px; /* Jaga jarak biar tulisan ga nempel layar */
+}
+
+/* --- Perbaikan Responsive di Media Query --- */
+@media screen and (max-width: 768px) {
+    #cover h1 { 
+        font-size: 2.2rem; /* Kecilin lagi cok, 3rem masih kegedean buat HP kecil semacam iPhone SE */
+    }
+    
+    .hero h1 { 
+        font-size: 2.5rem; 
+    }
+
+    /* Kasih jarak bawah di section terakhir biar tombol audio ga nutupin konten */
+    section { 
+        padding: 40px 15px; 
+    }
+    
+    /* Perbaikan Gambar Mempelai biar ga kegedean */
+    .mempelai-img {
+        width: 150px;
+        height: 150px;
+    }
+
+    /* Tombol Buka Undangan di HP */
+    .btn {
+        width: 100%; /* Biar gampang diklik jempol */
+        max-width: 250px;
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
