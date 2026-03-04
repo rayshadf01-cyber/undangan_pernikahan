@@ -1,38 +1,39 @@
-html {
-    scroll-behavior: smooth !important;
-}
-
+/* --- 1. VARIABLES & RESET --- */
 :root {
     --bg-dark: #1a0202;
     --burgundy-deep: #3d0303;
-    --gold-bright: #d4af37;
-    --gold-soft: #c5a059;
-    --white-ivory: #fcfcfc;
+    --gold-bright: #3d0303;
+    --gold-soft: #3d0303;
+    --white-ivory: #eeebe3;
     --text-muted: #d1d1d1;
+    --wa-green: #25d366;
 }
+
 
 * {
     box-sizing: border-box;
 }
 
-/* Kunci Scroll di Awal */
-body.locked {
-    overflow: hidden;
-    height: 100vh;
+html {
+    scroll-behavior: smooth !important;
 }
 
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'tulisan', sans-serif;
     color: var(--white-ivory);
     background-color: var(--bg-dark);
     overflow-x: hidden;
 }
 
-/* BACKGROUND UTAMA TETAP DI BODY */
-body::after {
-    content: "";
+body.locked {
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* --- 2. FIXED BACKGROUND (ANTI-GOYANG DI HP) --- */
+.bg-fixed {
     position: fixed;
     top: 0;
     left: 0;
@@ -42,10 +43,10 @@ body::after {
     background-size: cover;
     background-position: center;
     z-index: -2;
+    will-change: transform;
 }
 
-body::before {
-    content: "";
+.bg-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -55,10 +56,9 @@ body::before {
     z-index: -1;
 }
 
-/* SECTION HERO (COVER) */
+/* --- 3. HERO / COVER SECTION --- */
 .hero {
     position: fixed;
-    /* Bikin nempel penuh */
     top: 0;
     left: 0;
     width: 100%;
@@ -67,18 +67,23 @@ body::before {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--bg-dark);
-    /* Biar ga tembus pandang pas awal */
+    background: 
+                 /* Putih transparan (overlay) */
+                url(bunga.jpg),
+                url(prewed7.jpg); 
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    background-blend-mode: soft-light;
     z-index: 1000;
-    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
     text-align: center;
 }
 
-/* Efek Geser ke Atas */
 .hero.slide-up {
     transform: translateY(-100vh);
 }
 
+/* --- 4. SECTION DEFAULTS --- */
 section {
     position: relative;
     padding: 80px 20px;
@@ -90,37 +95,57 @@ section {
     background: transparent;
     z-index: 1;
 }
+.jarak {
+    position: relative;
+    padding: 0px 0px; /* Kurangi padding dari 80px ke 60px */
+    min-height: auto;   /* UBAH INI dari 100vh ke auto */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* UBAH INI agar konten mulai dari atas, bukan tengah */
+    align-items: center;
+    background: transparent;
+    z-index: 1;
+}
+.renggang {
+   
+}
+.judul {
+    position: relative;
+    padding: 80px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    z-index: 1;
+    font-family: 'bromello';
+}
+.subjudul{
+    font-family: 'bromello';
+    font-size: 60px;
+    text-align: center;
+}
 
-/* Typography & Layout (Sesuai kode lu) */
-h1,
-h2.section-title,
-.script-name,
-.divider-ampersand {
-    font-family: 'Great Vibes', cursive;
-    color: var(--gold-bright);
+/* --- 5. TYPOGRAPHY --- */
+h1, h2.section-title, .script-name, .divider-ampersand {
+    font-family: 'tulisan', cursive;
+    color: var(--white-ivory);
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
     text-align: center;
 }
 
-.couple-title {
-    font-size: 3.5rem;
-    margin: 10px 0;
-}
+.couple-title { font-family:'bromello' 3.5rem; margin: 10px 0; }
+.script-name { font-size: 2.2rem; margin: 15px 0 5px 0; }
+.divider-ampersand { font-size: 4rem; margin: 20px 0; }
+.ucapan {font-family: 'Times New Roman', Times, serif; text-align: center;}
+.kata{font-family: 'Times New Roman', Times, serif,; text-align: center; font-size: 20px;}
 
-.script-name {
-    font-size: 2.2rem;
-    margin: 15px 0 5px 0;
-}
-
-.divider-ampersand {
-    font-size: 4rem;
-    margin: 20px 0;
-}
-
+/* --- 6. COMPONENTS --- */
 .arch-frame {
     width: 220px;
     height: 320px;
-    border: 2px solid var(--gold-soft);
+    
     border-radius: 110px 110px 10px 10px;
     margin: 20px auto;
     overflow: hidden;
@@ -133,122 +158,194 @@ h2.section-title,
     object-fit: cover;
 }
 
-.countdown-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin: 20px 0;
-}
-
-.countdown-row {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    width: 100%;
-}
-
-.count-box {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    border: 1px solid var(--gold-soft);
-    padding: 10px;
-    min-width: 70px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.count-box.large {
-    min-width: 120px;
-    padding: 15px;
-    background: rgba(212, 175, 55, 0.2);
-}
-
-.count-box span {
-    display: block;
-    font-size: 1.8em;
-    font-weight: bold;
-    color: var(--gold-bright);
-}
-
-.count-box p {
-    margin: 0;
-    font-size: 0.7em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-}
-
 .glass-card {
     background: rgba(26, 2, 2, 0.5);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(212, 175, 55, 0.3);
     padding: 25px;
     border-radius: 15px;
     margin: 20px 0;
     width: 100%;
     max-width: 500px;
-}
-
-.gallery-wrapper {
-    width: 100vw;
-    overflow-x: auto;
-    display: flex;
-    padding: 20px 0;
-}
-
-.gallery-container {
-    display: flex;
-    gap: 15px;
-    padding: 0 30px;
-}
-
-.gallery-item {
-    flex: 0 0 260px;
-    height: 380px;
-    border-radius: 15px;
-    overflow: hidden;
-    border: 2px solid var(--gold-soft);
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    text-align: center;
 }
 
 .btn-gold {
-    background: linear-gradient(45deg, #d4af37, #8d6e35);
+    background: linear-gradient(45deg, #3c00086d, #3c00086d);
     color: #fff;
     padding: 14px 35px;
-    border: none;
+    border: 1px solid white ;
     border-radius: 50px;
     font-weight: 600;
     cursor: pointer;
+    transition: 0.3s;
 }
+
+/* --- 7. COUNTDOWN --- */
+.count-box {
+    /* Gunakan RGBA untuk maroon transparan (R:128, G:0, B:0) */
+    /* 0.6 adalah tingkat transparansi, bisa kamu ubah sesuai selera */
+    background: rgba(128, 0, 0, 0.6); 
+    
+    backdrop-filter: blur(5px);
+    
+    /* Bingkai warna putih gading sesuai variabelmu */
+    border: 1px solid var(--white-ivory); 
+    
+    padding: 10px;
+    min-width: 70px;
+    border-radius: 10px;
+
+    /* KUNCI: Membuat semua tulisan di dalam box ke tengah */
+    text-align: center; 
+}
+.countdown-row { display: flex; gap: 10px; justify-content: center; width: 100%; }
+.count-box span { 
+    display: block; 
+    font-size: 1.8em; 
+    font-weight: bold; 
+    
+    /* Ubah angka angka jadi putih gading juga agar seragam */
+    color: var(--white-ivory); 
+}
+
+.count-box p { 
+    margin: 0; 
+    font-size: 0.7em; 
+    text-transform: uppercase; 
+    
+    /* Tulisan keterangan (Hari, Jam, dll) jadi putih gading */
+    color: var(--white-ivory); 
+}
+/* --- 8. STORY SECTION --- */
+.story-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+    margin: 30px auto;
+    width: 100%;
+}
+
+.story-row { display: flex; width: 100%; }
+.story-row.left { justify-content: flex-start; }
+.story-row.right { justify-content: flex-end; }
+
+.story-bubble {
+    background: var(--burgundy-deep);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 40px;
+    cursor: pointer;
+    max-width: 80%;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.story-bubble:hover { transform: translateY(-5px); border-color: var(--gold-soft); }
+
+.story-footer-text {
+    text-align: center;
+    max-width: 500px;
+    margin: 40px auto;
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+/* --- 9. GALLERY --- */
+.gallery-wrapper { width: 100vw; overflow-x: auto; display: flex; padding: 20px 0; }
+.gallery-container { display: flex; gap: 15px; padding: 0 30px; }
+.gallery-item { flex: 0 0 260px; height: 380px; border-radius: 15px; overflow: hidden;  }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- 10. FORM UCAPAN (FIXED) --- */
+#wish-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+#wish-form input, #wish-form textarea {
+    width: 100% !important;
+    padding: 12px;
+    border: 1px solid var(--gold-soft);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    font-family: 'tulisan';
+    display: block;
+}
+
+#wish-form textarea { resize: none; }
 
 .wa-button-group {
     display: flex;
+    flex-direction: column; /* Biar sejajar & sama besar */
     gap: 10px;
-    margin-top: 10px;
+    width: 100%;
 }
 
 .btn-wa {
-    flex: 1;
-    background: #25d366;
+    width: 100%;
+    background: var(--wa-green);
     color: white;
     border: none;
-    padding: 12px;
+    padding: 14px;
     border-radius: 8px;
     font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
 }
+
+/* --- 11. MODAL & MUSIC --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10001;
+    left: 0; 
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0,0,0,0.85);
+    backdrop-filter: blur(5px);
+    
+    /* TAMBAHIN INI: Supaya area modal bisa di-scroll */
+    overflow-y: auto; 
+    padding: 40px 0; /* Biar ada jarak pas di-scroll ke paling bawah */
+}
+
+.modal-content {
+    /* UBAH MARGIN: Biar posisi di HP lebih enak dilihat */
+    margin: 30px auto; 
+    width: 85%;
+    max-width: 400px;
+    position: relative;
+    padding: 25px; /* Tambahin padding dalem biar teks ga mepet garis */
+    background: var(--burgundy-deep); /* Pastikan warnanya solid */
+    border-radius: 15px;
+    animation: zoomIn 0.3s ease forwards;
+}
+
+/* Tambahan dikit biar teks ceritanya enak dibaca */
+#modal-desc {
+    line-height: 1.6;
+    font-size: 0.95rem;
+    white-space: pre-line; /* Biar kalau lu enter di JS, di sini juga nge-enter */
+}
+
+.close-btn { position: absolute; right: 15px; top: 10px; font-size: 28px; color: var(--gold-bright); cursor: pointer; }
 
 #music-btn {
     position: fixed;
     bottom: 20px;
     right: 20px;
     background: var(--gold-bright);
-    width: 45px;
-    height: 45px;
+    width: 45px; height: 45px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -257,97 +354,26 @@ h2.section-title,
     cursor: pointer;
 }
 
-@media (max-width: 480px) {
-    .couple-title {
-        font-size: 2.8rem;
-    }
-
-    .wa-button-group {
-        flex-direction: column;
-    }
-}
-/* Story Section Tanpa Garis */
-.story-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Jarak antar bubble atas bawah */
-    max-width: 500px;
-    margin: 30px auto;
-    padding: 0 15px;
-}
-
-.story-row {
-    display: flex;
-    width: 100%;
-}
-
-.story-row.left { justify-content: flex-start; }
-.story-row.right { justify-content: flex-end; }
-
-.story-bubble {
-    background: #3d0303; /* Warna Burgundy sesuai gambar */
-    color: white;
-    padding: 15px 25px;
-    border-radius: 40px; /* Bikin lonjong kayak di gambar */
-    cursor: pointer;
-    max-width: 75%;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-}
-
-.story-bubble:hover {
-    transform: translateY(-5px);
-    background: #3d0303;
-    border-color: var(--gold-soft);
-}
-
-/* Teks Penutup */
-.story-footer-text {
-    text-align: center;
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 0 20px;
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: var(--white-ivory);
-}
-
-.story-footer-text p {
-    margin-bottom: 20px;
-}
-
-/* Modal Pop-up */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 10001; /* Di atas segalanya */
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    margin: 20% auto;
-    width: 85%;
-    max-width: 400px;
-    text-align: center;
-    position: relative;
-    animation: zoomIn 0.3s ease;
-}
-
-.close-btn {
-    position: absolute;
-    right: 15px; top: 10px;
-    font-size: 28px;
-    color: var(--gold-bright);
-    cursor: pointer;
-}
-
 @keyframes zoomIn {
-    from { transform: scale(0); opacity: 0; }
+    from { transform: scale(0.5); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
+}
+
+/* --- 12. RESPONSIVE --- */
+@media (max-width: 480px) {
+    .couple-title { font-size: 2.8rem; }
+    .glass-card { padding: 20px 15px; }
+}
+@font-face {
+    font-family: 'tulisan'; /* Nama bebas yang akan dipanggil nanti */
+    src: url('1840-font.otf') format('woff2'),;
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'bromello'; /* Nama bebas yang akan dipanggil nanti */
+    src: url('bromello.regular.ttf') format('woff2'),;
+    font-weight: normal;
+    font-style: normal;
 }
