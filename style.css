@@ -26,9 +26,11 @@ body {
     background-color: var(--bg-dark);
     overflow-x: hidden;
 }
+
 .bg-fixed {
     position: fixed;
-    inset: 0; /* Menggantikan top, left, width, height 100% */
+    inset: 0;
+    /* Menggantikan top, left, width, height 100% */
     width: 100%;
     height: 100%;
     background-image: url('prewed2.jpg');
@@ -41,6 +43,7 @@ body {
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
 }
+
 body.locked {
     overflow: hidden;
     height: 100vh;
@@ -447,8 +450,8 @@ h2.section-title,
     margin: 25px auto 0;
     padding: 10px;
     /* Batasi tinggi biar gak melar ke bawah */
-    max-height: 400px; 
-    overflow-y: auto; 
+    max-height: 400px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     /* Scrollbar estetik */
@@ -459,6 +462,7 @@ h2.section-title,
 .wish-list::-webkit-scrollbar {
     width: 4px;
 }
+
 .wish-list::-webkit-scrollbar-thumb {
     background: var(--gold-bright);
     border-radius: 10px;
