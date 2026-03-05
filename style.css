@@ -26,7 +26,21 @@ body {
     background-color: var(--bg-dark);
     overflow-x: hidden;
 }
-
+.bg-fixed {
+    position: fixed;
+    inset: 0; /* Menggantikan top, left, width, height 100% */
+    width: 100%;
+    height: 100%;
+    background-image: url('prewed2.jpg');
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+    /* KUNCI UTAMA: Memaksa Hardware Acceleration */
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
 body.locked {
     overflow: hidden;
     height: 100vh;
@@ -430,26 +444,23 @@ h2.section-title,
 .wish-list {
     width: 100%;
     max-width: 450px;
-    margin-top: 25px;
+    margin: 25px auto 0;
     padding: 10px;
-
-    /* KUNCINYA DI SINI: Kasih batas tinggi */
-    max-height: 400px;
-    overflow-y: auto;
-    /* Munculkan scrollbar kalau isinya penuh */
-
-    /* Biar scrollbar-nya estetik (tipis) */
+    /* Batasi tinggi biar gak melar ke bawah */
+    max-height: 400px; 
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column;
+    /* Scrollbar estetik */
     scrollbar-width: thin;
     scrollbar-color: var(--gold-bright) transparent;
 }
 
-/* Custom scrollbar buat Chrome/Safari (Biar gak ngerusak desain) */
 .wish-list::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
 }
-
 .wish-list::-webkit-scrollbar-thumb {
-    background-color: var(--gold-bright);
+    background: var(--gold-bright);
     border-radius: 10px;
 }
 
